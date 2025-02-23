@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/sessions")
 @RequiredArgsConstructor
+@CrossOrigin(origins = { "http://localhost:4200" })
 public class SessionController {
     @Autowired
     private SessionService sessionService;

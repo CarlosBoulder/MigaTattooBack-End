@@ -1,6 +1,6 @@
 package com.example.MigaTattoAgenda.dto.Session;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -8,5 +8,5 @@ import lombok.Data;
 public class SessionInDto {
     private Long costumerId;
     private Long tattooId;
-    private LocalDate sessionDate;
+    private LocalDateTime sessionDate;
 }

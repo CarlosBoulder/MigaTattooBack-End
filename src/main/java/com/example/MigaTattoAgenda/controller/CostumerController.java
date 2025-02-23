@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(path = "api/v1/costumers")
 @RequiredArgsConstructor
+@CrossOrigin(origins = { "http://localhost:4200" })
 public class CostumerController {
     @Autowired
     private CostumerService costumerService;
@@ -58,5 +61,18 @@ public class CostumerController {
     @ResponseStatus(HttpStatus.OK)
     public List<CostumerOutDto> getCostumerByName(@PathVariable("costumerName") String costumerName) {
         return costumerService.getCostumerByName(costumerName);
+    }
+
+    @PutMapping("/{costumerId}")
+    public ResponseEntity<CostumerOutDto> editCostumer(@PathVariable("costumerId") Long costumerId,
+            @RequestBody CostumerInDto costumerIn) {
+        try {
+            CostumerOutDto costumerEdited = costumerService.editCostumer(costumerId, costumerIn);
+            return new ResponseEntity<>(costumerEdited, HttpStatus.OK);
+        } catch (CostumerNotFoundException exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

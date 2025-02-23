@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -25,9 +25,9 @@ public class Session {
     private Tattoo tattoo;
 
     @Column(name = "session_date", nullable = false)
-    private LocalDate sessionDate;
+    private LocalDateTime sessionDate;
 
-    public Session(Costumer costumer, Tattoo tattoo, LocalDate sessionDate) {
+    public Session(Costumer costumer, Tattoo tattoo, LocalDateTime sessionDate) {
         this.costumer = costumer;
         this.tattoo = tattoo;
         this.sessionDate = sessionDate;

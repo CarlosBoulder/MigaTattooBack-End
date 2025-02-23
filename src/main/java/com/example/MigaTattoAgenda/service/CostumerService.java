@@ -75,4 +75,24 @@ public class CostumerService {
         return result;
     }
 
+    public CostumerOutDto editCostumer(Long id, CostumerInDto costumerIn) throws Exception {
+        Optional<Costumer> costumerToEdit = costumerRepository.findById(id);
+
+        if (costumerToEdit.isEmpty()) {
+            throw new CostumerNotFoundException();
+        }
+
+        Costumer costumerToSave = costumerToEdit.get();
+        costumerToSave.setCostumername(costumerIn.getCostumername());
+        costumerToSave.setCostumerLastname(costumerIn.getCostumerLastname());
+        costumerToSave.setPhone(costumerIn.getPhone());
+        costumerToSave.setBirthDate(costumerIn.getBirthDate());
+        costumerToSave.setEmail(costumerIn.getEmail());
+
+        costumerRepository.save(costumerToSave);
+
+        return new CostumerOutDto(costumerToSave.getId(), costumerToSave.getCostumername(),
+                costumerToSave.getCostumerLastname(), costumerToSave.getPhone(), costumerToSave.getBirthDate(),
+                costumerToSave.getEmail());
+    }
 }
