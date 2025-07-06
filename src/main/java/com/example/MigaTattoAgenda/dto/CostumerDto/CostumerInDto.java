@@ -1,5 +1,7 @@
 package com.example.MigaTattoAgenda.dto.CostumerDto;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,4 +13,5 @@ public class CostumerInDto {
     private String phone;
     private String birthDate;
     private String email;
+    private LocalDateTime createdAt;
 }

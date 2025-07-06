@@ -1,5 +1,6 @@
 package com.example.MigaTattoAgenda.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +21,14 @@ public class CostumerService {
     CostumerRepository costumerRepository;
 
     public CostumerOutDto saveCostumer(CostumerInDto costumerInDto) {
+        LocalDateTime now = LocalDateTime.now();
         Costumer costumer = costumerRepository
                 .save(new Costumer(costumerInDto.getCostumername(), costumerInDto.getCostumerLastname(),
-                        costumerInDto.getPhone(), costumerInDto.getBirthDate(), costumerInDto.getEmail()));
+                        costumerInDto.getPhone(), costumerInDto.getBirthDate(), costumerInDto.getEmail(),
+                        now));
 
-        return new CostumerOutDto(costumer.getId(), costumer.getCostumerLastname(), costumer.getPhone(),
-                costumer.getBirthDate(), costumer.getEmail(), costumer.getCostumername());
+        return new CostumerOutDto(costumer.getId(), costumer.getCostumername(), costumer.getCostumerLastname(),
+                costumer.getPhone(), costumer.getBirthDate(), costumer.getEmail());
     }
 
     public void delete(Long id) {
@@ -38,15 +41,15 @@ public class CostumerService {
     }
 
     public List<CostumerOutDto> getCostumers() {
-        List<Costumer> data = costumerRepository.findAll();
+        List<CostumerProjection> data = costumerRepository.findAllByOrderByCreatedAtDesc();
         List<CostumerOutDto> result = new ArrayList<>();
 
-        for (Costumer costumer : data) {
+        for (CostumerProjection costumer : data) {
             Long id = costumer.getId();
-            String costumername = costumer.getCostumername();
-            String costumerLastname = costumer.getCostumerLastname();
+            String costumername = costumer.getCostumer_name();
+            String costumerLastname = costumer.getCostumer_lastname();
             String phone = costumer.getPhone();
-            String birthDate = costumer.getBirthDate();
+            String birthDate = costumer.getBirth_date();
             String email = costumer.getEmail();
 
             CostumerOutDto costumerOut = new CostumerOutDto(id, costumername, costumerLastname, phone, birthDate,

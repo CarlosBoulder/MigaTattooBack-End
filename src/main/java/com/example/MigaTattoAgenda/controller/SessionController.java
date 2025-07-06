@@ -1,5 +1,6 @@
 package com.example.MigaTattoAgenda.controller;
 
+import com.example.MigaTattoAgenda.dto.Session.LastSessionFullOut;
 import com.example.MigaTattoAgenda.dto.Session.SessionInDto;
 import com.example.MigaTattoAgenda.dto.Session.SessionOutDto;
 import com.example.MigaTattoAgenda.service.SessionService;
@@ -28,5 +29,17 @@ public class SessionController {
     @ResponseStatus(HttpStatus.OK)
     public List<SessionOutDto> getAllSessions() {
         return sessionService.getAllSessions();
+    }
+
+    @GetMapping("/lastSession/{costumerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public LastSessionFullOut getLastSessionByCostumerId(@PathVariable Long costumerId) {
+        return sessionService.findLastSessionByCostumerId(costumerId);
+    }
+
+    @GetMapping("/lastSession")
+    @ResponseStatus(HttpStatus.OK)
+    public List<LastSessionFullOut> getLastSessions() {
+        return sessionService.findLastSessionsOfAllCustomers();
     }
 }

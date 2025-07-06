@@ -1,5 +1,6 @@
 package com.example.MigaTattoAgenda.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -38,18 +39,23 @@ public class Costumer {
     @Column(name = "email", nullable = false, length = 100, unique = true)
     private String email;
 
+    @Column(name = "createdAt", nullable = false, unique = true)
+    private LocalDateTime createdAt;
+
     @OneToMany(mappedBy = "costumer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tattoo> tattoos;
 
     @OneToMany(mappedBy = "costumer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Session> sessions;
 
-    public Costumer(String costumername, String costumerLastame, String phone, String birthDate, String email) {
+    public Costumer(String costumername, String costumerLastame, String phone, String birthDate, String email,
+            LocalDateTime createdAt) {
         this.costumername = costumername;
         this.costumerLastname = costumerLastame;
         this.phone = phone;
         this.birthDate = birthDate;
         this.email = email;
+        this.createdAt = createdAt;
     }
 
 }

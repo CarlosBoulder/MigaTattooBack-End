@@ -28,7 +28,7 @@ public class Tattoo {
     @Column(name = "tattooName", nullable = false, length = 50)
     private String tattooName;
 
-    @Column(name = "image", nullable = true, length = 100)
+    @Column(name = "image", nullable = true, length = 300)
     private String image;
 
     @Column(name = "description", nullable = false, length = 200)
